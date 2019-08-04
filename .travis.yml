@@ -4,22 +4,22 @@ services:
  - docker
  
  before_install:
-  - docker build -t queenra/react-test -f ./client/Dockerfile.dev ./client
+  - docker build -t rxarzola/react-test -f ./client/Dockerfile.dev ./client
   
  script:
-  - docker run -e CI=true queenra/react-test npm test
+  - docker run -e CI=true rxarzola/react-test npm test
   
  after_success:
-  - docker build -t queenra/multi-client ./client
-  - docker build -t queenra/multi-nginx ./nginx
-  - docker build -t queenra/multi-server ./server
-  - docker build -t queenra/multi-worker ./worker
+  - docker build -t rxarzola/multi-client ./client
+  - docker build -t rxarzola/multi-nginx ./nginx
+  - docker build -t rxarzola/multi-server ./server
+  - docker build -t rxarzola/multi-worker ./worker
   # Login to the docker CLI
   
   - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_ID" --password-stdin
   
   # Take those images and push them to docker hub
-  - docker push queenra/multi-client
-  - docker push queenra/multi-nginx
-  - docker push queenra/multi-server
-  - docker push queenra/multi-worker
+  - docker push rxarzola/multi-client
+  - docker push rxarzola/multi-nginx
+  - docker push rxarzola/multi-server
+  - docker push rxarzola/multi-worker
