@@ -3,23 +3,23 @@ sudo: required
 services:
  - docker
  
- before_install:
-  - docker build -t rxarzola/react-test -f ./client/Dockerfile.dev ./client
+before_install:
+ - docker build -t rxarzola/react-test -f ./client/Dockerfile.dev ./client
   
- script:
-  - docker run -e CI=true rxarzola/react-test npm test
+script:
+ - docker run -e CI=true rxarzola/react-test npm test
   
- after_success:
-  - docker build -t rxarzola/multi-client ./client
-  - docker build -t rxarzola/multi-nginx ./nginx
-  - docker build -t rxarzola/multi-server ./server
-  - docker build -t rxarzola/multi-worker ./worker
-  # Login to the docker CLI
+after_success:
+ - docker build -t rxarzola/multi-client ./client
+ - docker build -t rxarzola/multi-nginx ./nginx
+ - docker build -t rxarzola/multi-server ./server
+ - docker build -t rxarzola/multi-worker ./worker
+ # Login to the docker CLI
   
-  - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_ID" --password-stdin
+ - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_ID" --password-stdin
   
-  # Take those images and push them to docker hub
-  - docker push rxarzola/multi-client
-  - docker push rxarzola/multi-nginx
-  - docker push rxarzola/multi-server
-  - docker push rxarzola/multi-worker
+ # Take those images and push them to docker hub
+ - docker push rxarzola/multi-client
+ - docker push rxarzola/multi-nginx
+ - docker push rxarzola/multi-server
+ - docker push rxarzola/multi-worker
